@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
+
+body {
+    margin: 5% 15%;
+    font-family: 'Kanit';
+    background-color: rgb(240, 231, 230);
+}
+
+section {
+    margin: 25px 0;
+}
+
+p {
+    margin: 40px 0;
+    font-size: 16pt;
+}
+
+a {
+    color: rgb(149, 3, 3);
+    text-decoration: none;
+}
+
+figure {
+    display: table;
+    margin: 0;
+}
+
+figcaption {
+    display: table-caption;
+    caption-side: bottom;
+}
+
+img {
+    width: 90%;
+}

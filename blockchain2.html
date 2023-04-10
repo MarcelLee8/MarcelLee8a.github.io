@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./style.css" type="text/css" />
+		<title>INTP362: Emerging Trends - Blog 2</title>
+	</head>
+
+	<body>
+		<header>
+			<h1>How to create a secured blockchain?</h1>
+			<h3>By Marcel Lee</h3>
+            <h3>April 9, 2023</h3>
+            <a href="./blockchain.html">How to create a basic blockchain?</a>
+		</header>
+
+		<article>
+			<section id="intro">
+                <p>
+					Hello everyone. Welcome to part 2 of my blog on Blockchain with JavaScript. Previously in my last blog, I explained and showed the
+                    simple coding of basic blockchain with minimal understanding of how it works. We know and acknowledge JavaScript as one of the
+                    widely used programming languages for software developers and programmers. So now, I will demonstrate the blockchain with more
+                    secure concepts.
+				</p>
+
+                <p>
+                    I'll be demonstrating how I created a secured transaction that will prevent people from attempting to tamper with the link of blocks
+                    and it was done in a few techniques that I have learned over the past few months: Proof of Work, mining transactions, and signing
+                    transactions. Let's start with the first technique.
+                </p>
+			</section>
+
+			<section id="techniques">
+				<h2>Proof of Work</h2>
+				<p>
+                    Why do we need Proof of Work implementation? It is an algorithm that secures an unsecured network of blocks by generating a hash
+                    that links the hash for the current block. This process would be validating the transaction to confirm, close, and open new blocks.
+                </p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/Proof-of-work.png" />
+                        <figcaption>getHash and mineBlock methods</figcaption>
+                    </figure>
+                </div>
+
+				<p>
+					Here we have a method called mineBlock with a property, diff (or difficulty), and inside the brackets, I made the hash of the block
+                    begin with a specific number of zeros. So, I must create a while loop that continues to run until the hash has a specific number of
+                    zeros. Inside the bracket, I add the substring of the nextHash with a character zero and continue to have it until it matched the
+                    level of difficulty. It will keep running on the loop until the hash is not equal to zeros.
+				</p>
+
+                <p>
+                    Add the console log to print the hash of the new block that just mined. I then must add a nonce value which is a random number to
+                    iterate the getHash calculation's output.
+                </p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/Proof-of-work2.png" />
+                        <figcaption>Blockchain class</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    Next, I go to the addBlock method and the line that comments out simply creates a new block with a different hash and replaces it
+                    with newBlock.mineBlock to pass with the level of difficulty.
+                </p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/Proof-of-work3.png" />
+                        <figcaption>Test Proof of Work</figcaption>
+                    </figure>
+                </div>
+
+                <h3>
+                    Output
+                </h3>
+                <div>
+                    <figure>
+                        <img src="./assets/images/Proof-of-work4.png" />
+                        <figcaption>Output of the Proof of Work</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    Now, it is time to test the Proof of Work implementation by using the console.log statements as shown above. So, we would know the
+                    hashes on the specific mining block. As you can see after running blockchain.js by using node, the hashes of the new blocks started
+                    with two zeros based on the level of difficulty from the constructor. This a good note for everyone who is curious about changing
+                    the level of difficulty, the higher the difficulty, the longer it takes to mine new blocks and the number of zeros would change
+                    depending on the number of zeros. This technique would allow us to control how fast the new blocks can be created and added to the
+                    blockchain.
+                </p>
+
+                <h2>Mining Transactions</h2>
+				<p>
+					Our next technique is called mining transactions by creating bitcoins into the system. The purpose of this technique is to validate
+                    the digital transaction on the system when we use or add to the ledger.
+				</p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/MiningData.png" />
+                        <figcaption>Data and Block classes</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+					I create a Data class for the digital transaction. So, the transaction of the data receives a fromAddr, a toAddr, and a quantity
+                    (or amount of coins). I would then create and assign each of them inside the constructor as shown above.
+				</p>
+
+                <p>
+					Next, I modify the Block class to support the transactions. I simply delete or comment out the index argument because the block
+                    orders are set out by the positions in the array, not by the index. I also must omit the first parameter from createBlock method to
+                    match the number of properties as the constructor.
+				</p>
+
+                <p>
+					Next, we must create something to store pending transactions and a method to mine the new blocks for pending transactions. Why do we
+                    have to do this? As of now, we create blocks on a specific interval. The Proof of Work that I mentioned earlier makes sure that
+                    there's one block created at a specific time. All the transactions that are made in between blocks are stored in the pending
+                    transaction array temporarily and are to be included in the new block. So, I started modifying the properties inside the constructor
+                    of the Blockchain class by adding pendingData for the pending transactions which equals an empty array. Then, I create another
+                    property miningDeposit which we would see to deposit how many coins into the system. So, when see below I assign miningDeposit with a
+                    thousand coins.
+				</p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/MiningData2.png" />
+                        <figcaption>Blockchain class</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+					Before we get into the mining method, we must delete the addBlock method as I have mentioned in my previous blog. I just replace it
+                    by creating miningCompData for pending transactions which will receive an address, miningCompAddr. Inside this block, I type let
+                    block equals new Block that includes a timestamp, Date.now(), and a pending transaction, pendingData. Next, let's start mining it by
+                    typing block.mineBlock with a difficulty that is set within the system. I added the console log as you can see below to print the
+                    message and prove that a block is successfully mined. I then added to the chain by pushing the block into an existing blockchain.
+				</p>
+
+                <p>
+					Next, I must reset the pendingData array and create a new transaction afterward. So, define the array with new Data or transactions
+                    which included null because fromAddr did exist yet, send toAddr, and deposit the amount into the system. Now, I created an addData
+                    for the new transaction to receive it and it will push into the pendingData or pending transaction array.
+				</p>
+
+                <p>
+					The getAmtofAddr method would show you to check the amount of the address. The purpose of this method is to store the transaction
+                    information in the blockchain. I type the let balance equals 0 as the deposit. I then create a for loop inside a for loop with if
+                    statements for credit and debit transactions in the account. Finally, once the for loop is stopped looping, we return the balance.
+				</p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/MiningData3.png" />
+                        <figcaption>miningCompData, addData, getAmtofAddr methods</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    Now, it's time to test the mining transactions. First, I create a couple of transactions with a random string of addresses, addr1
+                    and addr2, and 80 would send to addr2 from addr1. Remember addr1 and addr2 are the public keys of the users' wallets. After the
+                    transactions are created, they will be in the pending transaction array. So, the miner has to create a block for storing transaction
+                    information on the blockchain. So, I typed blockChainJS.miningCompData with the receiver's address, userAddress.
+                </p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/MiningData4.png" />
+                        <figcaption>Test Mining Transactions</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    Then, I typed the "node blockchain.js" to run it and it creates an output as shown below. As you can see, the block was mined
+                    successfully with its respective hash of two leading zeros. Ok, the reason why the first attempt has a balance of zero is that the
+                    user's balance did not exist before the new block was created.
+                </p>
+
+                <h3>Output</h3>
+                <div>
+                    <figure>
+                        <img src="./assets/images/MiningData5.png" />
+                        <figcaption>Output of the Mining Transactions</figcaption>
+                    </figure>
+                </div>
+
+				<h2>Signing Transactions</h2>
+				<p>
+					Our last technique of this blog is signing transactions. This is one is important because the techniques I demonstrate in this blog
+                    do not have restrictions on transactions. So, I will show you how to make it mandatory for transactions to be signed with both
+                    private and public keys so that you can only change the balance if you have a private key.
+				</p>
+
+				<p>
+					First, I must clean up the blockchain.js and transfer all the code except the test code to the new .js file, blockchain2.js. The
+                    reason I did this is that I want blockchain.js as a driver and to make it simpler. Second, I create a new file, keygen.js, with the
+                    first line of code to call out elliptic library. This library will generate public and private keys and methods to sign and to
+                    verify a signature. Since this is not a default library in the Visual Studio Code application, I must type the command,
+                    “npm install elliptic”. The next line of code is an instance of elliptic with an elliptic curve,
+                    <a href="https://www.npmjs.com/package/secp256k1">secp256k1</a> which is algorithm for the bitcoin to implement key cryptography. I
+                    then generate a key pair for both public and private keys with the hex format.
+				</p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/SigningData.png" />
+                        <figcaption>keygen.js</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    After I run the keygen.js, you can see both public and private keys in the command prompt as it shown below.
+                </p>
+
+                <h3>
+                    Output
+                </h3>
+                <div>
+                    <figure>
+                        <img src="./assets/images/SigningData2.png" />
+                        <figcaption>Output of the Key Generator</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    Now, let's start creating the code for signing transactions. I added code for Data class by creating a method that can check if the
+                    signature on the transaction is valid. I added getHash to create a hash by returning the SHA256 hash of the transaction which it
+                    would be used to sign with the private key. Next, I create a signData method for signing a transaction by receiving a key to sign
+                    it. To sign the transaction, we must show the public and private key pair. signTheKey is the object from the elliptic library. So, I
+                    created the const hashData with assigned getHash() and the const sign or signature to take the signTheKey to sign the hash of the
+                    transaction in base 64. Then store it into this.signature in the hex format.
+                </p>
+
+                <p>
+                    The last method for the Data class is to validate it. Inside the if statement, it will return true if the fromAddr is empty and we
+                    would assume the transaction is valid. Next, I create a new public key object from the fromAddr which is public and to be use the
+                    elliptic curve library to pass the fromAddr to convert into hex. Return the public key by verifying the hash of the block that has
+                    been signed by this.signature. Remember, I included elliptic curve in this JavaScript file, I must import elliptic library into the
+                    file.
+                </p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/SigningData3.png" />
+                        <figcaption>Data class</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    The next code I will show is to verify all the transactions in the current block. I created hasValidData method inside the Block
+                    class by creating an if statement and if the transactions could not find anything then it would return true.
+                </p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/SigningData4.png" />
+                        <figcaption>Block class</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    We are done coding the signing transactions. Now, it's time to test it. First, I import the elliptic library and then to initialize
+                    the user's key, mykey, assign it with the same private key that we generate earlier, and then retrieve the public key from the
+                    user's myPersonalKey in hex format. Second, we're making a transaction with const transfer1 equals new Data with myPersonalKey, a
+                    string of other user's public key, and number of coins to transfer. Third, sign the transaction with myPersonalKey, and added to the
+                    blockchain, make the pending transaction or miningCompData to be sent to myPersonalKey where no one can access to it, and output the
+                    balance of the myPersonalKey.
+                </p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/SigningData5.png" />
+                        <figcaption>Test Sigining Transactions</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    Next, create console.log to see if the chain is valid. As you can after running it on the first attempt, it is valid. But when I try
+                    to tamper the chain on the second attempt as you can see below, it is no valid. The reason it happened because the signature does
+                    not match.
+                </p>
+
+                <h3>Output</h3>
+                <div>
+                    <figure>
+                        <img src="./assets/images/SigningData6.png" />
+                        <figcaption>Output of the Signing Transactions</figcaption>
+                    </figure>
+                </div>
+			</section>
+
+			<section id="conclusion">
+				<h2>Conclusion</h2>
+				<p>
+					The techniques you read on this blog are the examples of the progression I've learned from basic blockchain to the blockchain that
+                    is tampered proof. This technology is evolving and I'm very keen to learn more about it and I hope you've learned a lot as much as I
+                    did. Thank you for visiting my blog and take care for now.
+				</p>
+			</section>
+		</article>
+	</body>
+</html>

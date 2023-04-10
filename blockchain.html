@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./style.css" type="text/css" />
+		<title>INTP362: Emerging Trends - Blog 1</title>
+	</head>
+
+	<body>
+		<header>
+			<h1>How to create a basic blockchain?</h1>
+			<h3>By Marcel Lee</h3>
+            <h3>February 23, 2023</h3>
+            <a href="./blockchain2.html">How to create a secured blockchain?</a>
+		</header>
+
+		<article>
+			<section id="intro">
+				<p>
+					If you ever heard of Bitcoin or you are curious about cryptocurrency, you probably heard about blockchain technology as well. The
+                    idea about it is more than just virtual money exchanges. Blockchain is a modern and recently developed network that has the power to
+                    contribute to any online ventures. How's that works? In this blog post, I can explain how the blockchain works in JavaScript.
+				</p>
+			</section>
+
+			<section id="about">
+				<h2>What is a blockchain?</h2>
+				<p>
+                    Before I can show you some coding, we need to understand what a blockchain is. The term blockchain comes from two connected words.
+                    Each block consists of some basic records or information by cryptographic hash of the previous block, a timestamp of when the
+                    creation of the block, and transactions' records that has happened in the block.
+                </p>
+
+				<p>
+					The chain is the computer network that process these blocks. The records are sent through the number of computers that are connected
+                    on a same network and it computes through a part of a distributed ledger that copies the activities between blocks. Also, we don't
+                    want to have any flaws in the chain and its records must not be changed, mutable, nor hackable; therefore, once the information is
+                    sent to the blocks and put on record, the information is permanent or absolute.
+				</p>
+
+                <h2>How to build a blockchain in JavaScript?</h2>
+				<p>
+					As you all know, the programming language we use makes all the difference in creating new programs. Systems have required us to learn
+                    the specific programming or coding languages for different system that we are building on. For example, C++ is the programming
+                    language of Bitcoin. So, if you want to build a Bitcoin, then you are required to learn and understand the C++ language.
+				</p>
+
+                <p>
+					But that is a completely different topic. In this blog, I will tell you how the blockchain works in JavaScript. JavaScript is one of
+                    the most widely used programming languages that many software developers and programmers already familiar with. As of now, blockchain
+                    become very noticeable, well known, and next emerging trend in the mainstream world of technology and it is worthy to look deeply
+                    into the blockchain in JavaScript in depth. So, this is why the ability to use the JavaScript as a coding language for blockchain is
+                    essential because it allows us to start coding so easily since we are very familiar with it from beginners to experts. If you are
+                    creative and methodical that can create or improve the blockchain, then JavaScript will be an easy starting point.
+				</p>
+			</section>
+
+            <section id="setup">
+				<h2>Setup</h2>
+				<p>
+					We all know there are many source code editors for JavaScript to choose from, I am using Visual Studio Code for creating the
+                    blockchain because I got so use to this IDE for quite some time now. Throughout this blog post, I will be using oop, or
+                    object-oriented programming, style. So, I expect you will have knowledge about JavaScript without any forms of difficulties. Before
+                    you're about to create a new JavaScript file, make sure you created a new file in the preferred directory of where you want it to be
+                    stored. This is done by moving the cursor to the explorer, right click the specific directory, left click "New File", and type
+                    whatever name you want with the JavaScript extension. Or another way is a cd command followed by the path of the desired directory in
+                    the Visual Studio Code's terminal and then create a new file.
+				</p>
+
+				<p>
+					There are also another two ways to create a new file in the Visual Studio Code's terminal, you can use the "code" keyword to create a
+                    file, or you can use the "echo" keyword to create a new file. First method, after opening the Visual Studio Code's terminal
+                    (CTRL + `), go to the preferred folder and use the following command to create a new file with the JavaScript extension,
+                    "code blockchain.js", where blockchain is the name of the file you want to make. Last step, type any text in the file and use
+                    CTRL + S to save the file in the preferred folder that you choose. The other method to create a file in the Visual Studio Code is
+                    echo keyword. It is very similar to the code keyword but this time type "echo > "blockchain.js"".
+				</p>
+
+                <p>
+                    Awesome, now you are ready to start coding the blockchain. Let's proceed shall we.
+                </p>
+
+				<h2>Creating a block</h2>
+                <p>
+                    As I said earlier of this blog post, a block is an object that stores basic information on it as a block class shown below.
+                </p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/block.jpg" />
+                        <figcaption>Block constructor</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    Here we have "this" keyword as the current object in a constructor. The reason why use this keyword is to avoid the confusion between
+                    class attributes and parameters with the same name. As of now, it's missing the immutability or incapble of changing the state of the
+                    object. We can make the blockchain work by using a hashing fuction that hashes all the properties in the block. Hashing is absolutely
+                    essential for the blockchain technology, because each block gives a unique identity, for example identification of the block, and the
+                    ability to change or alter the block of the blockchain impossible.
+                </p>
+                <p>
+                    I'm going to use <a href="https://www.npmjs.com/package/crypto-js">sha256</a> hash function for this JavaScript file, because it is
+                    considered the most secure hashing algorithm available. Since the JavaScript doesn't have this particular algorithm by default, I
+                    have to import a crypto library, which it includes dozens of different kind of hash algorithms, through npm command in the Visual
+                    Studio Code's terminal by using the command "npm install --save crypto-js". Before to continue coding, make sure to import sha256
+                    function directly into the JavaScript file as a constant as shown below.
+                </p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/sha256.jpg" />
+                        <figcaption>Constant of SHA256 hash function</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    Once it's imported, now you can start using it.
+                </p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/gethash.jpg" />
+                        <figcaption>getHash method</figcaption>
+                    </figure>
+                </div>
+
+                <p>
+                    This getHash method shown above, what it does it returns sha256 hash of the index, previous hash, timestamp, and stringify the data
+                    object to convert a JavaScript value to a JSON string. Next, we added the code that ensures the immutability of a block. The prevHash
+                    ensures that the blocks will stay unchanged along the lifespan of the blockchain. It contains the hash of the previous block, so you
+                    can assure the immutability of that previous block will make the next block's hash, or getHash, different.
+                </p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/block_2.jpg" />
+                        <figcaption>getHash method</figcaption>
+                    </figure>
+                </div>
+			</section>
+
+			<section id="creation_blockchain">
+				<h2>Creating the Blockchain</h2>
+				<p>
+					Now, we have created a block. Next, we are going to linked or chained them together securely. I will talk you through how the
+                    blockchain class works. I initialize the blockchain by adding the constructor. So, it creates a chain of property and its going to be
+                    an array of blocks. The createBlock method is the first block of the blockchain and returns the new block with an index number,
+                    timestamp of the block's creation, data of any string you want, and previous hash of the block. Since this is the very first block
+                    and it cannot point to any previous blocks at this point; therefore, it can be any hash and I simply just type "0" to make it easier
+                    for everyone to understand that zero is the very first number.
+				</p>
+                <div>
+                    <figure>
+                        <img src="./assets/images/blockchain.jpg" />
+                        <figcaption>Blockchain</figcaption>
+                    </figure>
+                </div>
+
+				<p>
+                    Ok, we initialize the very first block of the blockchain. Now, we're going to add new blocks to the existing blockchain. Add the
+                    getLastBlock which it returns the latest block in the blockchain. So, it returns the last element, which is length minus one.
+                    Finally, add the addBlock method that will receive a new block. What this method is trying to do is adding a new block to an existing
+                    blockchain. It needs a bit more coding than we did at the start of the file, because it must be assign into the array. Assign the
+                    latest block with the next hash to the previous hash property of the new block. Now, we move on to the next block and this will
+                    create a new block with a different hash, newBlock.getHash(). The last line of the addBlock method is to push the new block into the
+                    existing blockchain.
+                </p>
+				
+				<p>
+					All the simple coding above is just the basic blockchain. It is not considered a complete implementation of the blockchain, but
+                    enough minimal information how it works. As I'm still researching more about better secured blockchain, you will learn more
+                    implementations of the next blog that JavaScript can show you how to make it more secured.
+				</p>
+			</section>
+
+			<section id="conclusion">
+				<h2>Conclusion</h2>
+				<p>
+					JavaScript is a widely used programming language and one of the important core technologies in IT. This language is easy to learn for
+                    everyone regardless the level of experience in programming language, especially by experienced programmers or software developers
+                    that can learn a new language quickly. Anyone who would like to create their own blockchain at ease, JavaScript would be a good
+                    starting point to learn more about the blockchain.
+				</p>
+			</section>
+		</article>
+	</body>
+</html>
